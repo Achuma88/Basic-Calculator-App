@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculator</title>
+    <link rel="stylesheet"  href="Style.css">
+</head>
+<body>
+    <table border="l">
+        <tr>
+            <td colspan="4">
+                <input type="text" id="inputBox" value="0"/>
+            </td>
+        </tr>
+        <tr>
+            <td class="didgitButton" onclick="digitBtnPressed(7)">7</td>
+            <td class="didgitButton" onclick="digitBtnPressed(8)">8</td>
+            <td class="didgitButton" onclick="digitBtnPressed(9)">9</td>
+            <td class="operatorButton" onclick="operatorBtnPressed('*')">x</td>
+        </tr>
+        <tr>
+            <td class="didgitButton" onclick="digitBtnPressed(4)">4</td>
+            <td class="didgitButton" onclick="digitBtnPressed(5)">5</td>
+            <td class="didgitButton" onclick="digitBtnPressed(6)">6</td>
+            <td class="operatorButton" onclick="operatorBtnPressed('-')">-</td>
+        </tr>
+        <tr>
+            <td class="didgitButton" onclick="digitBtnPressed(1)">1</td>
+            <td class="didgitButton" onclick="digitBtnPressed(2)">2</td>
+            <td class="didgitButton" onclick="digitBtnPressed(3)">3</td>
+            <td class="operatorButton" onclick="operatorBtnPressed('+')">+</td>
+        </tr>
+        <tr>
+            <td class="didgitButton" colspan="2" onclick="digitBtnPressed(0)">0</td>
+            <td class="ACButton"onclick="btnACPressed()">AC</td>
+            <td class="operatorButton" onclick="operatorBtnPressed('/')">÷</td>
+        </tr>
+        <tr>
+            <td class="operatorButton" colspan="4" onclick="equalsBtnPressed()">=
+            </td>
+        </tr>
+
+    </table>
+
+    <script>
+        var expression = ""; // This will hold the full expression (e.g. "7+3")
+        var newLine = true;  // Determines if we should start fresh
+        var value1;
+        var currentOperator;
+    
+        function digitBtnPressed(button) 
+        {
+         if (newLine) 
+          {
+             document.getElementById("inputBox").value = button;
+             expression = button.toString();
+             newLine = false;
+          } 
+         else 
+            {
+
+              document.getElementById("inputBox").value += button;
+              expression += button.toString();
+           }
+       }
+
+    
+       function operatorBtnPressed(operator){
+        expression += operator;
+        document.getElementById("inputBox").value = expression;
+        newLine = false;
+       }
+
+    
+        function equalsBtnPressed() {
+           let inputBox = document.getElementById("inputBox");
+           try {
+              let result = eval(expression); // Safely evaluates the full math expression
+              inputBox.value = result;
+              expression = result.toString(); // Keep result for next calculation
+              newLine = true;
+           } catch (e) 
+           {
+             inputBox.value = "Error";
+             expression = "";
+           }
+       }
+
+        function btnACPressed() {
+            document.getElementById("inputBox").value = 0;
+            expression = "";
+            value1 = null;
+            currentOperator = null;
+            newLine = true;
+        }
+    </script>
+    
+
+    
+</body>
+</html>
